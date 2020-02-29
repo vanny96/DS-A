@@ -6,6 +6,9 @@ import java.util.Queue;
 public class BinarySearchTree {
     public BinarySearchNode firstNode;
 
+    public BinarySearchTree() {
+    }
+
     public BinarySearchTree(int[] array){
         firstNode = new BinarySearchNode(array[0]);
 
@@ -23,12 +26,14 @@ public class BinarySearchTree {
         if(value < node.element) {
             if(node.leftChild == null){
                 node.leftChild = new BinarySearchNode(value);
+                node.leftChild.parent = node;
             } else {
                 insert(value, node.leftChild);
             }
         } else {
             if(node.rightChild == null){
                 node.rightChild = new BinarySearchNode(value);
+                node.rightChild.parent = node;
             } else {
                 insert(value, node.rightChild);
             }
