@@ -1,6 +1,11 @@
 package sort;
 
+import interfaces.CountSortable;
+
+import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
 
 public class SortAlgorythms {
 
@@ -68,5 +73,49 @@ public class SortAlgorythms {
         }
 
         return newArray;
+    }
+
+    public static <T extends CountSortable> T[] countingSort(T[] elements){
+        Class<?> elementClass = null;
+        if(elements.length > 0){
+            elementClass = elements[0].getClass();
+        } else {
+            return null;
+        }
+
+        // N time
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        for(T element : elements){
+            if(element.getId() > max)
+                max = element.getId();
+            if(element.getId() < min)
+                min = element.getId();
+        }
+
+        // K time
+        @SuppressWarnings("unchecked")
+        LinkedList<T>[] keys = new LinkedList[max - min + 1];
+        for(int i = 0; i < keys.length; i++){
+            keys[i] = new LinkedList<>();
+        }
+
+        // N time
+        for(T element : elements){
+            keys[element.getId() - min].add(element);
+        }
+
+        // K + N time
+        @SuppressWarnings("unchecked")
+        T[] finalArray = (T[]) Array.newInstance(elementClass, elements.length);
+        int counter = 0;
+        for (LinkedList<T> key : keys) { // This takes K time
+            for (T t : key) { // This take N time in total
+                finalArray[counter] = t;
+                counter++;
+            }
+        }
+
+        return finalArray;
     }
 }

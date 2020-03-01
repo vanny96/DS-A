@@ -56,6 +56,7 @@ public class BinarySearchTree {
             }
         } else {
             firstNode = node.rightChild;
+            node.rightChild.parent = null;
         }
         node.parent = node.rightChild;
 
@@ -76,6 +77,7 @@ public class BinarySearchTree {
             }
         } else {
             firstNode = node.leftChild;
+            node.leftChild.parent = null;
         }
         node.parent = node.leftChild;
 

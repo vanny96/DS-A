@@ -45,15 +45,19 @@ public class AVLtree extends BinarySearchTree {
         BalanceDirection balance = checkBalance(node);
         boolean rotated = false;
         switch (balance){
-            case RIGHT:
+            case DOUBLE_RIGHT:
+                if(checkBalance(node.getRightChild()).equals(BalanceDirection.LEFT))
+                    rightRotate(node.getRightChild()); /* Run double rotation if right child is left-heavy */
                 leftRotate(node);
                 rotated = true;
                 break;
-            case LEFT:
+            case DOUBLE_LEFT:
+                if(checkBalance(node.getLeftChild()).equals(BalanceDirection.RIGHT))
+                    rightRotate(node.getLeftChild()); /* Run double rotation if left child is right-heavy */
                 rightRotate(node);
                 rotated = true;
                 break;
-            case BALANCED:
+            default:
                 break;
         }
         return rotated;
@@ -64,8 +68,12 @@ public class AVLtree extends BinarySearchTree {
         int heightRight = node.getRightChild() == null ? -1 : node.getRightChild().height;
 
         if((heightRight - heightLeft) > 1) {
-            return BalanceDirection.RIGHT;
+            return BalanceDirection.DOUBLE_RIGHT;
         } else if((heightRight - heightLeft) < -1){
+            return BalanceDirection.DOUBLE_LEFT;
+        } else if((heightRight - heightLeft) == 1){
+            return BalanceDirection.RIGHT;
+        } else if((heightRight - heightLeft) == -1){
             return BalanceDirection.LEFT;
         } else {
             return BalanceDirection.BALANCED;
@@ -80,6 +88,8 @@ public class AVLtree extends BinarySearchTree {
     }
 
     private enum BalanceDirection {
+        DOUBLE_LEFT,
+        DOUBLE_RIGHT,
         LEFT,
         RIGHT,
         BALANCED
