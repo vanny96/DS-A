@@ -3,6 +3,9 @@ package interfaces;
 public class CountSortable {
     private Integer id;
 
+    public CountSortable() {
+    }
+
     public CountSortable(Integer id) {
         this.id = id;
     }
