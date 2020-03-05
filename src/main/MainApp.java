@@ -1,22 +1,22 @@
 package main;
 
-import interfaces.CountSortable;
-import sort.SortAlgorythms;
-import structures.AVLtree;
+import algorythms.HashAlgorythms;
 
-import java.util.Arrays;
+import java.util.Scanner;
 
 public class MainApp {
     public static void main(String[] args) {
-        CountSortable[] array = new CountSortable[]{
-                new CountSortable(5),
-                new CountSortable(4),
-                new CountSortable(3),
-                new CountSortable(2),
-                new CountSortable(1)
-        };
+        Scanner scanner = new Scanner(System.in);
+        int a = 0;
 
-        System.out.println("Array: " + Arrays.toString(array) + "\nSorted Array: "
-                + Arrays.toString(SortAlgorythms.radixSort(array)));
+        while (a != -1){
+            System.out.println("Insert value to hash: ");
+            a = Integer.parseInt(scanner.nextLine());
+
+            String format = "%35s %s\n";
+            System.out.format(format, "Divide hash (max 173): ", HashAlgorythms.divideHash(a, 173));
+            System.out.format(format, "Stupid multiply hash (max 256): ", HashAlgorythms.stupidMultiplyHash(a, 256));
+            System.out.format(format, "Clever multiply hash (max 256): ", HashAlgorythms.cleverMultiplyHash(a, 256));
+        }
     }
 }

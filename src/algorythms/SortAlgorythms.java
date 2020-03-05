@@ -1,10 +1,9 @@
-package sort;
+package algorythms;
 
 import interfaces.CountSortable;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedList;
 
 public class SortAlgorythms {
@@ -96,7 +95,9 @@ public class SortAlgorythms {
         // K time
         @SuppressWarnings("unchecked")
         LinkedList<T>[] keys = new LinkedList[max - min + 1];
-        Arrays.fill(keys, new LinkedList<>());
+        for(int i = 0; i < keys.length; i++){
+            keys[i] = new LinkedList<>();
+        };
 
         // N time
         for(T element : elements){
@@ -139,13 +140,13 @@ public class SortAlgorythms {
         // Prepare sortable elemnets
         @SuppressWarnings("unchecked")
         RadixSortUtility<T>[] alteredElements = new RadixSortUtility[elements.length];
-        for(int i = 0; i < elements.length; i++){
+        for(int i = 0; i < elements.length; i++){ // This takes N time
             Integer[] idAsBaseN = changeIntBase(elements[i].getId() - min, elements.length, numberOfDigitsAtBaseN);
             alteredElements[i] = new RadixSortUtility<T>(idAsBaseN);
             alteredElements[i].object = elements[i];
         }
 
-        // Sort
+        // Sort - Takes (N elements + N possible value as base n) * log n K  time
         for(int i = numberOfDigitsAtBaseN - 1; i >= 0; i--){
             alteredElements = alteredCountingSort(alteredElements, i);
         }
