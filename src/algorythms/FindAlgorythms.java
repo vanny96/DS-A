@@ -1,5 +1,7 @@
 package algorythms;
 
+import structures.ChainingMap;
+
 import java.util.Arrays;
 
 public class FindAlgorythms {
@@ -31,5 +33,14 @@ public class FindAlgorythms {
                     value,
                     --localizer - array.length / 4);
         }
+    }
+
+    public static Integer stringMatching(String value, String text){
+        ChainingMap<String, Integer> textMap = new ChainingMap<>();
+        for(int i = 0; i <= text.length() - value.length(); i++){
+            textMap.insert(text.substring(i, i + value.length()), i);
+        }
+
+        return textMap.get(value);
     }
 }

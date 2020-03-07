@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 
 public class ChainingMap<K, T> {
-    private int mapLength = 2;
+    private int mapLength = 16;
     private LinkedList<MapNode<K, T>>[] map;
     private int size;
 
@@ -35,7 +35,7 @@ public class ChainingMap<K, T> {
             // If instantiated check the elements so that you can override the existing value
             ListIterator<MapNode<K, T>> iterator = map[hash].listIterator();
             while (iterator.hasNext()){
-                if(iterator.next().key == key){
+                if(key.equals(iterator.next().key)){
                     iterator.set(newNode);
                     return;
                 }
@@ -59,7 +59,7 @@ public class ChainingMap<K, T> {
         if(map[hash] != null){
             ListIterator<MapNode<K, T>> iterator = map[hash].listIterator();
             while (iterator.hasNext()){
-                if(iterator.next().key == key){
+                if(key.equals(iterator.next().key)){
                     iterator.remove();
                     size--;
 
@@ -80,7 +80,7 @@ public class ChainingMap<K, T> {
             return null;
 
         for(MapNode<K, T> node : map[hash]){
-            if(node.key == key)
+            if(key.equals(node.key))
                 return node.element;
         }
 
