@@ -2,7 +2,6 @@ package structures;
 
 import algorythms.HashAlgorythms;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -50,7 +49,7 @@ public class ChainingMap<K, T> {
         size++;
 
         if(size > mapLength){
-            doubleMap();
+            changeMapLength(length -> length * 2);
         }
     }
 
@@ -58,10 +57,20 @@ public class ChainingMap<K, T> {
         int hash = hash(key);
 
         if(map[hash] != null){
-            map[hash].removeIf(node -> node.key == key);
+            ListIterator<MapNode<K, T>> iterator = map[hash].listIterator();
+            while (iterator.hasNext()){
+                if(iterator.next().key == key){
+                    iterator.remove();
+                    size--;
+
+                    if(size < mapLength / 4)
+                        changeMapLength(length -> length / 2);
+
+                    return;
+                }
+            }
         }
 
-        size--;
     }
 
     public T get(K key){
@@ -78,8 +87,12 @@ public class ChainingMap<K, T> {
         return null;
     }
 
-    private void doubleMap(){
-        this.mapLength *= 2;
+    public int size(){
+        return size;
+    }
+
+    protected void changeMapLength(MapLengthOperation operation){
+        this.mapLength = operation.invoke(this.mapLength);
 
         ChainingMap<K, T> newMap = new ChainingMap<>(this.mapLength);
 
@@ -94,11 +107,11 @@ public class ChainingMap<K, T> {
         this.map = newMap.map;
     }
 
-    private int preHash(K key){
+    protected int preHash(K key){
         return key.hashCode();
     }
 
-    private int hash(K key){
+    protected int hash(K key){
         return HashAlgorythms.cleverMultiplyHash(preHash(key), mapLength);
     }
 
@@ -129,5 +142,10 @@ public class ChainingMap<K, T> {
             this.key = key;
             this.element = element;
         }
+    }
+
+    @FunctionalInterface
+    public interface MapLengthOperation{
+        int invoke(int mapLength);
     }
 }

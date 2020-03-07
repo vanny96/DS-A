@@ -17,6 +17,20 @@ public class MainApp {
             }
         };
 
+        System.out.println("Map size is: " + map.size());
+        System.out.println(map.get(1));
+        System.out.println(map.get(2));
+        System.out.println(map.get(3));
+
+        map.delete(1);
+        System.out.println("Map size is: " + map.size());
+        System.out.println(map.get(1));
+        System.out.println(map.get(2));
+        System.out.println(map.get(3));
+
+        map.delete(2);
+        map.delete(3);
+        System.out.println("Map size is: " + map.size());
         System.out.println(map.get(1));
         System.out.println(map.get(2));
         System.out.println(map.get(3));
