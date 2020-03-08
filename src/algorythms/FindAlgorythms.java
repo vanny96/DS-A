@@ -1,6 +1,7 @@
 package algorythms;
 
 import structures.ChainingMap;
+import structures.DTA;
 
 import java.util.Arrays;
 
@@ -35,6 +36,7 @@ public class FindAlgorythms {
         }
     }
 
+    //O(n + k)ò
     public static Integer stringMatching(String value, String text){
         ChainingMap<String, Integer> textMap = new ChainingMap<>();
         for(int i = 0; i <= text.length() - value.length(); i++){
@@ -42,5 +44,34 @@ public class FindAlgorythms {
         }
 
         return textMap.get(value);
+    }
+
+    public static Integer karpRabinStringMatching(String value, String text){
+        DTA valueDta = new DTA();
+        for(char c : value.toCharArray()){
+            valueDta.append(c);
+        }
+
+        DTA textDta = new DTA();
+        for(char c : text.substring(0, value.length()).toCharArray()){
+            textDta.append(c);
+        }
+
+        if(valueDta.getPreHash() == textDta.getPreHash() &&
+        value.equals(text.substring(0, 3))){
+            return 0;
+        }
+        for (int i = value.length(); i < text.length(); i++){
+            textDta.skip(text.charAt(i - value.length()));
+            textDta.append(text.charAt(i));
+
+            if(textDta.getPreHash() == valueDta.getPreHash() &&
+                value.equals(text.substring(i- value.length() + 1, i + 1))) {
+
+                return i - value.length() + 1;
+            }
+        }
+
+        return null;
     }
 }
