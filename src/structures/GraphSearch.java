@@ -1,6 +1,7 @@
 package structures;
 
 import java.util.*;
+import java.util.function.Function;
 
 public class GraphSearch<T> {
     private IGraphSearch<T> graphProgress;
@@ -11,6 +12,40 @@ public class GraphSearch<T> {
         this.graphProgress = graphProgress;
         this.findElement = findElement;
         this.voidElement = voidElement;
+    }
+
+    public List<T> dephtFirstSearch(T source){
+        Map<T, T> parent = new HashMap<>();
+        parent.put(source, voidElement);
+
+        RecursionUtilityClass<IDephtFirstSearch<T>> supportClass = new RecursionUtilityClass<>();
+        supportClass.function = (node, nodeParent) -> {
+            
+            if(parent.containsKey(node)){
+               return Collections.emptyList();
+            }
+
+            parent.put(node, nodeParent);
+
+            if(findElement.find(node)){
+                return Collections.singletonList(node);
+            }
+
+            List<T> edges = graphProgress.getOptions(node);
+            for(T edge : edges){
+                List<T> result = supportClass.function.apply(edge, node);
+                if(!result.isEmpty()){
+                    return new ArrayList<T>(){{
+                            add(node);
+                            addAll(result);
+                    }};
+                }
+            }
+
+            return Collections.emptyList();
+        };
+
+        return supportClass.function.apply(source, voidElement);
     }
 
     public List<T> breathFirstSearch(T source) {
@@ -58,5 +93,14 @@ public class GraphSearch<T> {
     @FunctionalInterface
     public interface IGraphFind<T>{
         boolean find(T source);
+    }
+
+    @FunctionalInterface
+    public interface IDephtFirstSearch<T>{
+        List<T> apply (T node, T parent);
+    }
+
+    private static class RecursionUtilityClass<I>{
+        private I function;
     }
 }

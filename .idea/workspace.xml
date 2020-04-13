@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b36cb96-40e9-4057-9303-2102c24a4fc2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/structures/GraphSearch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Algorythms/main/MainApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Algorythms/main/MainApp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/MainApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/structures/GraphSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/structures/GraphSearch.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,10 +85,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="446" y="51" key="#com.intellij.ide.util.MemberChooser" timestamp="1586790630021">
+    <state x="446" y="51" key="#com.intellij.ide.util.MemberChooser" timestamp="1586803398895">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="446" y="51" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1586790630021" />
+    <state x="446" y="51" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1586803398895" />
     <state x="329" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1583578248658">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -103,22 +101,22 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="421" y="97" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1582203063063" />
-    <state width="1237" height="156" key="GridCell.Tab.0.bottom" timestamp="1586791698797">
+    <state width="1237" height="156" key="GridCell.Tab.0.bottom" timestamp="1586791903944">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="156" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1586791698797" />
-    <state width="1237" height="156" key="GridCell.Tab.0.center" timestamp="1586791698796">
+    <state width="1237" height="156" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1586791903944" />
+    <state width="1237" height="156" key="GridCell.Tab.0.center" timestamp="1586791903944">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="156" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1586791698796" />
-    <state width="1237" height="156" key="GridCell.Tab.0.left" timestamp="1586791698796">
+    <state width="1237" height="156" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1586791903944" />
+    <state width="1237" height="156" key="GridCell.Tab.0.left" timestamp="1586791903944">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="156" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1586791698796" />
-    <state width="1237" height="156" key="GridCell.Tab.0.right" timestamp="1586791698797">
+    <state width="1237" height="156" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1586791903944" />
+    <state width="1237" height="156" key="GridCell.Tab.0.right" timestamp="1586791903944">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="156" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1586791698797" />
+    <state width="1237" height="156" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1586791903944" />
     <state width="1237" height="204" key="GridCell.Tab.1.bottom" timestamp="1586791674543">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -162,7 +160,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/structures/GraphSearch.java</url>
-          <line>37</line>
+          <line>72</line>
           <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
