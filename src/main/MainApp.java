@@ -1,10 +1,11 @@
 package main;
 
-import algorythms.FindAlgorythms;
-import structures.DTA;
+import util.HorseChessPiece;
 
 public class MainApp {
     public static void main(String[] args) {
-        System.out.println(FindAlgorythms.karpRabinStringMatching("bob", "Oh no! Mi si è rotta la bobina!"));
+        HorseChessPiece piece = new HorseChessPiece('A', 2);
+
+        System.out.println(piece.shortestPath('F', 6));
     }
 }
