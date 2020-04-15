@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 // Priority queue, has insert, max-value, extract-max-value and change-key as methods
-public class Heap<T> {
+public class MaxHeap<T> {
 
     public int[] keys = new int[0];
     private Map<Integer, T> elements = new HashMap<>();
