@@ -34,7 +34,7 @@ public class MinHeap<T> {
         return element;
     }
 
-    public void insert(int key, T element){
+    public void insert(T element, int key){
         if(size == keys.length)
             throw new IndexOutOfBoundsException("Heap is full");
 
@@ -63,7 +63,7 @@ public class MinHeap<T> {
     }
 
     public int size(){
-        return keys.length;
+        return size;
     }
 
     private int[] getChildrensKeys(int parentKey){

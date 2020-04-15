@@ -18,18 +18,39 @@ public class GraphSearch<T> {
         Map<T, Integer> weights = new HashMap<>();
         Map<T, T> parents = new HashMap<>();
 
-        queue.insert(0, source);
+        T destination = null;
+
+        queue.insert(source, 0);
         weights.put(source, 0);
 
         while(queue.size() > 0){
             T node = queue.extractMin();
 
+            if(destination == null && findElement.find(node))
+                destination = node;
+
             for(T edge : graphProgress.getOptions(node)){
                 int possibleWeight = weights.get(node) + weightCheck.apply(node, edge);
-                if(weights.get(edge) > possibleWeight){
-                    weights.put(edge, possibleWeight);
 
+                if(weights.get(edge) == null || weights.get(edge) > possibleWeight){
+                    // Decrease the recorded weight, sets the new parent, increase his priority
+                    weights.put(edge, possibleWeight);
+                    parents.put(edge, node);
+
+                    int queueIndex = queue.indexOf(edge);
+                    if(queueIndex != -1) {
+                        queue.decreaseKey(queueIndex, possibleWeight);
+                    }else{
+                        queue.insert(edge, possibleWeight);
+                    }
                 }
+            }
+        }
+
+        if(destination != null) {
+            T destinationParent = parents.get(destination);
+            if (destinationParent != null){
+                return getPath(destination, parents);
             }
         }
 
