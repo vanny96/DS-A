@@ -1,14 +1,12 @@
 package main;
 
 import structures.MinHeap;
-import util.HorseChessPiece;
 
-import java.awt.*;
 import java.util.Scanner;
 
 public class MainApp {
     public static void main(String[] args) {
-        MinHeap<Integer> map = new MinHeap<>();
+        MinHeap<Integer> map = new MinHeap<>(10);
         Scanner scanner = new Scanner(System.in);
         int a;
         do{
@@ -19,7 +17,7 @@ public class MainApp {
             }
         }while (a != -1);
 
-        map.changeKey(0, 10);
+        map.decreaseKey(4, 0);
         System.out.println(map);
     }
 }

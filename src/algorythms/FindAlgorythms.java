@@ -7,9 +7,9 @@ import java.util.Arrays;
 
 public class FindAlgorythms {
 
-    public static int linearSearch(int[] array, int value){
+    public static <T> int linearSearch(T[] array, T value){
         for(int i = 0; i < array.length; i++){
-            if(array[i] == value){
+            if(array[i].equals(value)){
                 return i;
             }
         }

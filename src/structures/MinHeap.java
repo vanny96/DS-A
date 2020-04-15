@@ -3,54 +3,46 @@ package structures;
 import algorythms.FindAlgorythms;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MinHeap<T> {
-    int[] keys = new int[0];
-    Map<Integer, T> elementsMap = new HashMap<>();
+    private int[] keys;
+    private T[] elements;
 
-    public boolean changeKey(int previousKey, int newKey){
-        int index = FindAlgorythms.linearSearch(keys, previousKey);
+    private int size = 0;
 
-        if(index != -1){
-            keys[index] = newKey;
+    @SuppressWarnings("unchecked")
+    public MinHeap(int capacity) {
+        this.keys = new int[capacity];
+        this.elements = (T[]) new Object[capacity];
+    }
 
-            T element = elementsMap.remove(newKey);
-            elementsMap.put(newKey, element);
+    public void decreaseKey(int position, int newKey){
+        if(keys[position] < newKey)
+            throw new IllegalArgumentException("newKey is greater than existing value");
 
-            if(!minHeapify(index)){
-                do{
-                    index = (index+1)/2-1;
-                }while (index >= 0 && minHeapify(index));
-            }
-
-            return true;
-        } else {
-            return false;
-        }
+        keys[position] = newKey;
+        do{
+            position = (position+1)/2-1;
+        }while (position >= 0 && minHeapify(position));
     }
 
     public T extractMin(){
-        int supportKey = keys[0];
-
-        keys[0] = keys[keys.length-1];
-        keys = Arrays.copyOf(keys, keys.length-1);
-
+        changeElementPosition(0, size-1);
+        T element = elements[size-1];
+        reduceSize();
         minHeapify(0);
-
-        return elementsMap.remove(supportKey);
+        return element;
     }
 
     public void insert(int key, T element){
-        int[] newKeys = new int[keys.length+1];
-        System.arraycopy(keys, 0, newKeys, 0, keys.length);
-        keys = newKeys;
+        if(size == keys.length)
+            throw new IndexOutOfBoundsException("Heap is full");
 
-        keys[keys.length-1] = key;
-        elementsMap.put(key, element);
+        keys[size] = key;
+        elements[size] = element;
+        size++;
 
-        int index = keys.length-1;
+        int index = size-1;
         do{
             index = (index+1)/2-1;
         }while (index >= 0 && minHeapify(index));
@@ -61,9 +53,7 @@ public class MinHeap<T> {
         int minChildIndex = getMinIndex(childrenIndexes);
 
         if(minChildIndex != -1 && keys[i] > keys[minChildIndex]){
-            int supportKey = keys[i];
-            keys[i] = keys[minChildIndex];
-            keys[minChildIndex] = supportKey;
+            changeElementPosition(i, minChildIndex);
 
             minHeapify(minChildIndex);
             return true;
@@ -72,13 +62,17 @@ public class MinHeap<T> {
         }
     }
 
+    public int size(){
+        return keys.length;
+    }
+
     private int[] getChildrensKeys(int parentKey){
         // Logica strana per convertire indici 0,1,2... a 1,2,3... and back
         parentKey++;
 
-        if(parentKey * 2 + 1 <= keys.length){
+        if(parentKey * 2 < size){
             return new int[]{parentKey * 2 - 1, parentKey * 2};
-        } else if(parentKey * 2 <= keys.length){
+        } else if(parentKey * 2 - 1 < size){
             return new int[]{parentKey * 2 - 1};
         } else {
             return new int[0];
@@ -97,8 +91,31 @@ public class MinHeap<T> {
         return minIndex;
     }
 
+    private void changeElementPosition(int positionA, int positionB){
+        int supportKey = keys[positionA];
+        keys[positionA] = keys[positionB];
+        keys[positionB] = supportKey;
+
+        T supportElement = elements[positionA];
+        elements[positionA] = elements[positionB];
+        elements[positionB] = supportElement;
+    }
+
+    private void reduceSize(){
+        elements[size-1] = null;
+        keys[size-1] = 0;
+        size--;
+    }
+
+    public int indexOf(T element){
+        return FindAlgorythms.linearSearch(
+                Arrays.copyOfRange(elements, 0, size),
+                element
+        );
+    }
+
     @Override
     public String toString() {
-        return Arrays.toString(keys);
+        return Arrays.toString(Arrays.copyOfRange(keys, 0, size));
     }
 }

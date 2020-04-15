@@ -1,7 +1,6 @@
 package structures;
 
 import java.util.*;
-import java.util.function.Function;
 
 public class GraphSearch<T> {
     private IGraphSearch<T> graphProgress;
@@ -12,6 +11,29 @@ public class GraphSearch<T> {
         this.graphProgress = graphProgress;
         this.findElement = findElement;
         this.voidElement = voidElement;
+    }
+
+    public List<T> dijkstra(T source, INodeWeight<T> weightCheck){
+        MinHeap<T> queue = new MinHeap<>(100);
+        Map<T, Integer> weights = new HashMap<>();
+        Map<T, T> parents = new HashMap<>();
+
+        queue.insert(0, source);
+        weights.put(source, 0);
+
+        while(queue.size() > 0){
+            T node = queue.extractMin();
+
+            for(T edge : graphProgress.getOptions(node)){
+                int possibleWeight = weights.get(node) + weightCheck.apply(node, edge);
+                if(weights.get(edge) > possibleWeight){
+                    weights.put(edge, possibleWeight);
+
+                }
+            }
+        }
+
+        return Collections.emptyList();
     }
 
     public List<T> dephtFirstSearch(T source){
@@ -77,8 +99,10 @@ public class GraphSearch<T> {
 
     private LinkedList<T> getPath(T edge, Map<T,T> parent) {
         LinkedList<T> path = new LinkedList<>();
-        T reference = edge;
-        while(!reference.equals(voidElement)){
+        path.add(edge);
+
+        T reference = parent.get(edge);
+        while(reference != null){
             path.addFirst(reference);
             reference = parent.get(reference);
         }
@@ -98,6 +122,11 @@ public class GraphSearch<T> {
     @FunctionalInterface
     public interface IDephtFirstSearch<T>{
         List<T> apply (T node, T parent);
+    }
+
+    @FunctionalInterface
+    public interface INodeWeight<T>{
+        int apply(T node, T edge);
     }
 
     private static class RecursionUtilityClass<I>{
